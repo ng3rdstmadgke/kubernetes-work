@@ -1,0 +1,20 @@
+version: '3.2'
+services:
+  main:
+    hostname: main.kubernetes-work.local
+    build:
+      context: ../
+      dockerfile: docker/devcontainer/Dockerfile
+    volumes:  # docker-compose.yml があるディレクトリからの相対パスで指定する
+      - ..:/kubernetes-work:cached
+      - ~/.aws:/home/vscode/.aws:cached
+      - ~/.ssh:/home/vscode/.ssh:cached
+      - ~/.docker:/home/vscode/.docker:cached
+    command: sleep infinity
+    networks:
+      br-kubernetes-work: {}
+
+networks:
+  br-kubernetes-work:
+    driver: bridge
+    name: br-kubernetes-work
