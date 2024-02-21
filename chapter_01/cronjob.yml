@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cron
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cron
+            image: busybox
+            # imagePullPolicy: kubeletが特定のイメージをpullするときに作用する
+            #   IfNotPresent: ローカルにイメージが存在しない場合のみpullする
+            #   Always: 常にイメージをpullする (default)
+            #   Never: イメージをpullしない。常にローカルでイメージを探そうとする
+            imagePullPolicy: IfNotPresent
+            command: ["/bin/sh", "-c", "date"]
+          restartPolicy: OnFailure

@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job
+spec:
+  template:
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        command: ["echo", "Hello World."]
+      restartPolicy: Never  # コンテナの再起動設定。DeploymentならAlways, JobならNeverかOnFailure
+  backoffLimit: 3  # 失敗時のリトライ回数
