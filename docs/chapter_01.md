@@ -33,3 +33,4 @@ eksctl create cluster \
 # Nodeの情報が取得できればEKSクラスタの作成は完了
 kubectl get node
 ```
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxx.ap-northeast-1.elb.amazonaws.com
