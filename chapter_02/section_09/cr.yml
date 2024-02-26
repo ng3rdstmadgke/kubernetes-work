@@ -1,0 +1,8 @@
+apiVersion: "crd.example.com/v1"
+kind: Product
+metadata:
+  name: my-products
+spec:
+  name: "pencil"
+  price: 100
+  quantity: 3

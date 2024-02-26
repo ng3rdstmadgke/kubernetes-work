@@ -1,0 +1,39 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  # この名前は <names.plural>.<group> 形式でなければならない
+  name: products.crd.example.com
+spec:
+  # グループ名はAPI URL( /apis/<group>/<version> )の一部として使用される
+  group: crd.example.com
+  # CRDがサポートするバージョンのリスト
+  versions:
+    - name: v1
+      # このバージョンのAPIの有効・無効
+      served: true
+      # このバージョンのデータの永続化の有効・無効
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                name:
+                  type: string
+                price:
+                  type: integer
+                quantity:
+                  type: integer
+  scope: Namespaced
+  names:
+    # CRDの名前 (複数形)。API URLの一部として使用される( /apis/<group>/<version>/<plural> )
+    plural: products
+    # CRDの名前 (単数形)。CLIのエイリアスとして利用される。
+    singular: product
+    # リソースマニフェストで利用するカインド。キャメルケース。
+    kind: Product
+    # 短縮名。CLIのエイリアスとして利用される。
+    shortNames:
+      - prd
