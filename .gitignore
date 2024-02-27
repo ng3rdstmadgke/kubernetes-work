@@ -1,2 +1,6 @@
 appendix
 .devcontainer/.env
+
+# terraform
+**/secrets.auto.tfvars
+**/.terraform

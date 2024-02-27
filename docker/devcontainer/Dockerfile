@@ -42,7 +42,9 @@ RUN curl -LO https://dl.k8s.io/release/v1.22.6/bin/linux/amd64/kubectl && \
 RUN curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp && \
     mv /tmp/eksctl /usr/local/bin
 
-# terraform インストール
-RUN wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg && \
-    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/hashicorp.list && \
-    apt-get update && apt-get install -y terraform
+# terraform インストール (version 1.5.* が必要)
+# https://developer.hashicorp.com/terraform/install
+RUN wget https://releases.hashicorp.com/terraform/1.5.7/terraform_1.5.7_linux_amd64.zip && \
+    unzip terraform_1.5.7_linux_amd64.zip && \
+    mv terraform /usr/local/bin/ && \
+    terraform -install-autocomplete 
