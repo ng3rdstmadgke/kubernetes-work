@@ -15,4 +15,8 @@ module "iam_assumable_role_admin" {
   provider_url                 = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
   role_policy_arns             = [aws_iam_policy.aws_loadbalancer_controller.arn]
   oidc_subjects_with_wildcards = ["system:serviceaccount:*:*"]
+
+  depends_on = [
+    aws_iam_policy.aws_loadbalancer_controller
+  ]
 }

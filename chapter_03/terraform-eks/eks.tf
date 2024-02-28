@@ -6,7 +6,9 @@ module "eks" {
   cluster_version = "1.25"
   cluster_name    = "eks-cluster"
   vpc_id          = var.vpc_id
+  #vpc_id      = module.vpc.vpc_id
   subnet_ids      = var.private_subnets
+  #subnet_ids      = module.vpc.private_subnets
   enable_irsa     = true
   // KESのNodeGroupsには "Managed" と "Self Managed" の2つのタイプがある。
   // "Managed" はNodeのプロビジョニングとライフサイクル管理をEKSが自動で行う。
@@ -61,12 +63,20 @@ module "eks" {
   }
 }
 
+output "cluster_id" {
+  value = module.eks.cluster_id
+}
+
+output "cluster_name" {
+  value = module.eks.cluster_name
+}
+
 resource "null_resource" "kubeconfig" {
   triggers = {
     cluster_name = module.eks.cluster_id
   }
   provisioner "local-exec" {
-    command = "aws eks update-kubeconfig --name ${module.eks.cluster_id}"
+    command = "aws eks update-kubeconfig --name ${module.eks.cluster_name}"
   }
 }
 
@@ -83,9 +93,15 @@ resource "kubernetes_service_account" "aws_loadbalancer_controller" {
 
 
 data "aws_eks_cluster" "eks" {
-  name = module.eks.cluster_id
+  name = module.eks.cluster_name
+  depends_on = [ 
+    module.eks
+  ]
 }
 
 data "aws_eks_cluster_auth" "eks" {
-  name = module.eks.cluster_id
+  name = module.eks.cluster_name
+  depends_on = [ 
+    module.eks
+  ]
 }
