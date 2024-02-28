@@ -5,8 +5,8 @@ module "eks" {
   version         = "~> 20.4.0"
   cluster_version = "1.25"
   cluster_name    = "eks-cluster"
-  vpc_id          = module.vpc.vpc_id
-  subnet_ids      = module.vpc.private_subnets
+  vpc_id          = var.vpc_id
+  subnet_ids      = var.private_subnets
   enable_irsa     = true
   // KESのNodeGroupsには "Managed" と "Self Managed" の2つのタイプがある。
   // "Managed" はNodeのプロビジョニングとライフサイクル管理をEKSが自動で行う。

@@ -1,3 +1,4 @@
+/*
 // https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
@@ -21,11 +22,12 @@ module "vpc" {
     "kubernetes.io/role/internal-elb" = "1"
   }
 }
+*/
 
 resource "aws_security_group" "allow_http" {
   name        = "allow_http"
   description = "Allow HTTP access."
-  vpc_id      = module.vpc.vpc_id
+  vpc_id      = var.vpc_id
 
   ingress {
     description = "Allow HTTP access."
@@ -51,7 +53,7 @@ resource "aws_security_group" "allow_http" {
 resource "aws_security_group" "internal" {
   name        = "allow_internal"
   description = "Allow internal access"
-  vpc_id      = module.vpc.vpc_id
+  vpc_id      = var.vpc_id
 
   ingress {
     description     = "Allow internal access."
