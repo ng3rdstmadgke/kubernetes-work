@@ -1,9 +1,9 @@
 terraform {
-  required_version = "~> 1.2.1"
+  required_version = ">= 1.2.1"
   backend "s3" {
 
     # TODO 自分のS3バケット名に置き換えます。
-    bucket = "my-bucket"
+    bucket = "kubernetes-work-tfstate"
     key    = "terraform.tfstate"
     region = "ap-northeast-1"
   }

@@ -44,8 +44,15 @@ RUN curl --silent --location "https://github.com/weaveworks/eksctl/releases/late
 
 # terraform インストール (version 1.5.* が必要)
 # https://developer.hashicorp.com/terraform/install
-
 RUN wget https://releases.hashicorp.com/terraform/1.7.4/terraform_1.7.4_linux_amd64.zip && \
     unzip terraform_1.7.4_linux_amd64.zip && \
     mv terraform /usr/local/bin/ && \
     terraform -install-autocomplete 
+
+# helmインストール
+RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash && \
+    helm completion bash > /etc/bash_completion.d/helm
+
+# eksチャート追加
+RUN helm repo add eks https://aws.github.io/eks-charts && \
+    helm repo update
