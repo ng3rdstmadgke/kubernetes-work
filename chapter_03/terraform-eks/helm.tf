@@ -1,12 +1,8 @@
-// TerraformでHelm Chartをインストールする
-// https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release
-//
-// HelmのChart一覧: https://artifacthub.io/
 resource "helm_release" "aws-load-balancer-controller" {
   name       = "aws-load-balancer-controller"
   repository = "https://aws.github.io/eks-charts"
   chart      = "aws-load-balancer-controller"
-  version    = "1.7.1"
+  version    = "1.4.2"
   namespace  = "kube-system"
   depends_on = [
     kubernetes_service_account.aws_loadbalancer_controller,

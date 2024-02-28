@@ -1,28 +1,25 @@
 terraform {
-  required_version = "~> 1.7"
+  required_version = "~> 1.2.1"
   backend "s3" {
 
     # TODO 自分のS3バケット名に置き換えます。
-    bucket = "kubernetes-work-tfstate"
+    bucket = "my-bucket"
     key    = "terraform.tfstate"
     region = "ap-northeast-1"
   }
 
   required_providers {
     aws = {
-      // https://registry.terraform.io/providers/hashicorp/aws/latest
       source  = "hashicorp/aws"
-      version = "~> 5.38.0"
+      version = "~> 3.27"
     }
     kubernetes = {
-      // https://registry.terraform.io/providers/hashicorp/kubernetes/latest
       source  = "hashicorp/kubernetes"
-      version = "~> 2.26.0"
+      version = "2.5.0"
     }
     helm = {
-      // https://registry.terraform.io/providers/hashicorp/helm/latest
       source  = "hashicorp/helm"
-      version = "~> 2.12.0"
+      version = "2.6.0"
     }
   }
 }
@@ -43,15 +40,3 @@ provider "kubernetes" {
 }
 
 provider "aws" {}
-
-output "cluster_id" {
-  value = module.eks.cluster_id
-}
-
-output "cluster_name" {
-  value = module.eks.cluster_name
-}
-
-output "cluster_endpoint" {
-  value = data.aws_eks_cluster.eks.endpoint
-}

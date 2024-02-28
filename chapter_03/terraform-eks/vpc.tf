@@ -1,10 +1,5 @@
-/*
- * VPC作成
- * https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest
-*/
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
-  version = "~> 5.5.2"
 
   name = "eks-vpc"
   cidr = "10.0.0.0/16"
@@ -28,7 +23,6 @@ module "vpc" {
 resource "aws_security_group" "allow_http" {
   name        = "allow_http"
   description = "Allow HTTP access."
-  #vpc_id      = var.vpc_id
   vpc_id      = module.vpc.vpc_id
 
   ingress {
@@ -55,7 +49,6 @@ resource "aws_security_group" "allow_http" {
 resource "aws_security_group" "internal" {
   name        = "allow_internal"
   description = "Allow internal access"
-  #vpc_id      = var.vpc_id
   vpc_id      = module.vpc.vpc_id
 
   ingress {

@@ -1,17 +1,11 @@
-// EKSクラスターの作成
-// https://registry.terraform.io/modules/terraform-aws-modules/eks/aws/latest
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
-  version         = "~> 20.4.0"
-  cluster_version = "1.25"
+  version         = "18.0.5"
+  cluster_version = "1.22"
   cluster_name    = "eks-cluster"
-  #vpc_id          = var.vpc_id
-  vpc_id      = module.vpc.vpc_id
-  #subnet_ids      = var.private_subnets
+  vpc_id          = module.vpc.vpc_id
   subnet_ids      = module.vpc.private_subnets
   enable_irsa     = true
-  // KESのNodeGroupsには "Managed" と "Self Managed" の2つのタイプがある。
-  // "Managed" はNodeのプロビジョニングとライフサイクル管理をEKSが自動で行う。
   eks_managed_node_groups = {
     eks_node_group = {
       desired_size   = 2
@@ -19,7 +13,6 @@ module "eks" {
     }
   }
 
-  // Clusterに追加のセキュリティグループを設定
   cluster_security_group_additional_rules = {
     egress_nodes_ephemeral_ports_tcp = {
       description                = "To node 1025-65535"
@@ -31,7 +24,6 @@ module "eks" {
     }
   }
 
-  // Nodeに追加のセキュリティグループを設定
   node_security_group_additional_rules = {
 
     admission_webhook = {
@@ -68,7 +60,7 @@ resource "null_resource" "kubeconfig" {
     cluster_name = module.eks.cluster_id
   }
   provisioner "local-exec" {
-    command = "aws eks update-kubeconfig --name ${module.eks.cluster_name}"
+    command = "aws eks update-kubeconfig --name ${module.eks.cluster_id}"
   }
 }
 
@@ -85,15 +77,9 @@ resource "kubernetes_service_account" "aws_loadbalancer_controller" {
 
 
 data "aws_eks_cluster" "eks" {
-  name = module.eks.cluster_name
-  depends_on = [ 
-    module.eks
-  ]
+  name = module.eks.cluster_id
 }
 
 data "aws_eks_cluster_auth" "eks" {
-  name = module.eks.cluster_name
-  depends_on = [ 
-    module.eks
-  ]
+  name = module.eks.cluster_id
 }

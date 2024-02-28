@@ -17,17 +17,3 @@ variable "my_ip_adress" {
   description = "ALBにアクセスする際の使用中のIPアドレス"
   type        = string
 }
-
-variable "vpc_id" {
-  type = string
-}
-
-variable "private_subnets" {
-  type = list(string)
-}
-
-variable "public_subnets" {
-  type = list(string)
-}
-/*
-*/

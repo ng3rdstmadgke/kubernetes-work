@@ -1,10 +1,3 @@
-/**
- * GitHubActionsがAWSリソースにOIDC認証でアクセスできるようにするためのIDプロバイダの作成
- * IDプロバイダを使用することにより、GitHub ActionsのようなAWSの外部ユーザーにクレデンシャル情報を付与する必要がなくなる
- * 参考
- *   - GitHub Actions で OIDC を使用して AWS 認証を行う
-       - https://zenn.dev/kou_pg_0131/articles/gh-actions-oidc-aws
- */
 data "aws_iam_policy_document" "github_actions" {
   statement {
     actions = [
@@ -30,7 +23,7 @@ data "aws_iam_policy_document" "github_actions" {
 }
 
 resource "aws_iam_policy" "github_actions" {
-  name   = "ECRPushkPolicy"
+  name   = "ECRPushPolicy"
   policy = data.aws_iam_policy_document.github_actions.json
 }
 
