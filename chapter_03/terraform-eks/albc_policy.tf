@@ -2,8 +2,8 @@
  * AWS Load Balancer Controller を利用するためのIAMポリシー・Roleの作成
  */
 resource "aws_iam_policy" "aws_loadbalancer_controller" {
-  name   = "EKSIngressAWSLoadBalancerController"
-  policy = file("${path.module}/albc_iam_policy.json")
+  name   = "EKSIngressAWSLoadBalancerControllerPolicy"
+  policy = file("./albc_iam_policy.json")
 }
 
 module "iam_assumable_role_admin" {
