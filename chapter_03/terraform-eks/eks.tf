@@ -2,7 +2,7 @@
 // https://registry.terraform.io/modules/terraform-aws-modules/eks/aws/latest
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
-  version         = "18.0.5"
+  version         = "~> 20.4.0"
   cluster_version = "1.25"
   cluster_name    = "eks-cluster"
   vpc_id          = module.vpc.vpc_id

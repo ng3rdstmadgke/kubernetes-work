@@ -1,5 +1,5 @@
 terraform {
-  required_version = "~> 1.5.0"
+  required_version = "~> 1.7"
   backend "s3" {
 
     # TODO 自分のS3バケット名に置き換えます。
@@ -10,16 +10,19 @@ terraform {
 
   required_providers {
     aws = {
+      // https://registry.terraform.io/providers/hashicorp/aws/latest
       source  = "hashicorp/aws"
-      version = "~> 3.0"
+      version = "~> 5.38.0"
     }
     kubernetes = {
+      // https://registry.terraform.io/providers/hashicorp/kubernetes/latest
       source  = "hashicorp/kubernetes"
-      version = "2.5.0"
+      version = "~> 2.26.0"
     }
     helm = {
+      // https://registry.terraform.io/providers/hashicorp/helm/latest
       source  = "hashicorp/helm"
-      version = "2.6.0"
+      version = "~> 2.12.0"
     }
   }
 }

@@ -44,7 +44,8 @@ RUN curl --silent --location "https://github.com/weaveworks/eksctl/releases/late
 
 # terraform インストール (version 1.5.* が必要)
 # https://developer.hashicorp.com/terraform/install
-RUN wget https://releases.hashicorp.com/terraform/1.5.7/terraform_1.5.7_linux_amd64.zip && \
-    unzip terraform_1.5.7_linux_amd64.zip && \
+
+RUN wget https://releases.hashicorp.com/terraform/1.7.4/terraform_1.7.4_linux_amd64.zip && \
+    unzip terraform_1.7.4_linux_amd64.zip && \
     mv terraform /usr/local/bin/ && \
     terraform -install-autocomplete 

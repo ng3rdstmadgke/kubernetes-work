@@ -1,7 +1,7 @@
 // https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
-  version = "~> 3.0"
+  version = "~> 5.5.2"
 
   name = "eks-vpc"
   cidr = "10.0.0.0/16"
