@@ -4,3 +4,5 @@ appendix
 # terraform
 **/secrets.auto.tfvars
 **/.terraform
+
+tmp/
