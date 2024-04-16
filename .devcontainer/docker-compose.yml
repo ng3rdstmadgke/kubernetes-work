@@ -9,7 +9,7 @@ services:
       - ..:/kubernetes-work:cached
       - ~/.aws:/home/vscode/.aws:cached
       - ~/.ssh:/home/vscode/.ssh:cached
-      - ~/.config/kubernetes-work/.kube:/home/vscode/.kube:cached
+      #- ~/.config/kubernetes-work/.kube:/home/vscode/.kube:cached
       - ~/.docker:/home/vscode/.docker:cached
     command: sleep infinity
     networks:
