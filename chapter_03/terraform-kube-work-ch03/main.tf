@@ -37,6 +37,7 @@ provider "aws" {
 }
 
 locals {
+  project_name = "chapter03"
   cluster_name = "kubernetes-work-chapter03"
 }
 
