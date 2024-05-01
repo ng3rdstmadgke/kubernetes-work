@@ -36,6 +36,27 @@ provider "aws" {
   }
 }
 
+variable "repository_name" {
+  description = "GitHubのリポジトリ名"
+  type        = string
+}
+
+variable "github_user" {
+  description = "GitHubのユーザー名"
+  type        = string
+}
+
+variable "aws_account_id" {
+  description = "AWS ACCOUNT ID"
+  type        = string
+}
+
+variable "my_ip_adress" {
+  description = "ALBにアクセスする際の使用中のIPアドレス"
+  type        = string
+}
+
+
 locals {
   project_name = "chapter03"
   cluster_name = "kubernetes-work-chapter03"
