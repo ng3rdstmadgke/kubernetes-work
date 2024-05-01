@@ -41,35 +41,15 @@ locals {
   cluster_name = "kubernetes-work-chapter03"
 }
 
-/**
- * provider "kubernetes" {
- *   config_path    = "~/.kube/config"
- *   config_context = local.project_name
- * }
- */
-
 /*
-provider "kubernetes" {
-  // kubenetesAPIのホスト名(URL形式)。KUBE_HOST環境変数で指定している値に基づく。
-  host                   = var.cluster_endpoint
-  // TLS認証用のPEMエンコードされたルート証明書のバンドル
-  cluster_ca_certificate = base64decode(var.cluster_ca_cert)
-  // Exec plugins: https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs#exec-plugins
-  // ユーザークレデンシャルを受け取るためのコマンド
-  exec {
-    api_version = "client.authentication.k8s.io/v1beta1"
-    args        = ["eks", "get-token", "--cluster-name", var.cluster_name]
-    command     = "aws"
-  }
-}
 */
-
-
-/*
 provider "helm" {
   kubernetes {
-    host                   = var.cluster_endpoint
-    cluster_ca_certificate = base64decode(var.cluster_ca_cert)
+    host                   = data.aws_eks_cluster.eks.endpoint
+    cluster_ca_certificate = base64decode(data.aws_eks_cluster.eks.certificate_authority[0].data)
+    token                  = data.aws_eks_cluster_auth.eks.token
+    config_path            = "~/.kube/config"
+    /*
     // Exec plugins: https://registry.terraform.io/providers/hashicorp/helm/latest/docs#exec-plugins
     // ユーザークレデンシャルを受け取るためのコマンド
     exec {
@@ -77,6 +57,26 @@ provider "helm" {
       args        = ["eks", "get-token", "--cluster-name", var.cluster_name]
       command     = "aws"
     }
+    */
   }
 }
+
+
+/*
 */
+provider "kubernetes" {
+  // kubenetesAPIのホスト名(URL形式)。KUBE_HOST環境変数で指定している値に基づく。
+  host                   = data.aws_eks_cluster.eks.endpoint
+  // TLS認証用のPEMエンコードされたルート証明書のバンドル
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.eks.certificate_authority[0].data)
+  token                  = data.aws_eks_cluster_auth.eks.token
+  /*
+  // Exec plugins: https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs#exec-plugins
+  // ユーザークレデンシャルを受け取るためのコマンド
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    args        = ["eks", "get-token", "--cluster-name", var.cluster_name]
+    command     = "aws"
+  }
+  */
+}

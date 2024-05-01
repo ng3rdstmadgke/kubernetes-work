@@ -80,7 +80,6 @@ resource "null_resource" "kubeconfig" {
 // Service accountsはPod内で動くプロセスのためのもの
 // https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account
 // FIXME: Post "http://localhost/api/v1/namespaces/kube-system/serviceaccounts": dial tcp 127.0.0.1:80: connect: connection refused で落ちる
-/*
 resource "kubernetes_service_account" "aws_loadbalancer_controller" {
   metadata {
     name      = "aws-load-balancer-controller"
@@ -94,9 +93,9 @@ resource "kubernetes_service_account" "aws_loadbalancer_controller" {
     null_resource.kubeconfig,
   ]
 }
-*/
 
-
+// Data Source: aws_eks_cluster
+// https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster
 data "aws_eks_cluster" "eks" {
   name = module.eks.cluster_name
   depends_on = [
@@ -105,6 +104,8 @@ data "aws_eks_cluster" "eks" {
   ]
 }
 
+// Data Source: aws_eks_cluster_auth
+// https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth
 data "aws_eks_cluster_auth" "eks" {
   name = module.eks.cluster_name
   depends_on = [
