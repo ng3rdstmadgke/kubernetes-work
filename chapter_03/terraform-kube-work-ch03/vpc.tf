@@ -14,9 +14,11 @@ module "vpc" {
   single_nat_gateway = true
   enable_vpn_gateway = false
 
+  // パブリックサブネットを外部LB用に利用することをKubernetesとALBが認識できるようにするためのタグ
   public_subnet_tags = {
     "kubernetes.io/role/elb" = "1"
   }
+  // プライベートネットを内部LB用に利用することをKubernetesとALBが認識できるようにするためのタグ
   private_subnet_tags = {
     "kubernetes.io/role/internal-elb" = "1"
   }

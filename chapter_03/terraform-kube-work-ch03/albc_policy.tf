@@ -1,3 +1,8 @@
+/**
+ * AWS Load Balancer ControllerがALBを作成するために必要なPolicy/Roleを作成します。
+ * このRoleをContorollerが使用することにより、Ingressリソースが作成された際に自動でALBを作成できます。
+ */
+
 resource "aws_iam_policy" "aws_loadbalancer_controller" {
   name   = "${local.project_name}-EKSIngressAWSLoadBalancerControllerPolicy"
   policy = file("${path.module}/albc_iam_policy.json")

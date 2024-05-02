@@ -1,3 +1,11 @@
+/**
+ * GitHub ActionsがAWSリソースにOIDC認証でアクセスできるようにするためのIDプロバイダを作成します。
+ * 
+ * 参考
+ *   - AWSの「IDプロバイダーとフェデレーション」の仕組みを利用して、GoogleアカウントでAWSを利用・操作してみた
+ *     https://note.com/shift_tech/n/nf5eb16948de1
+ */
+
 data "aws_iam_policy_document" "github_actions" {
   statement {
     actions = [

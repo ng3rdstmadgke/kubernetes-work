@@ -1,5 +1,11 @@
-// AWS Load Balancer Controller - Helmを使用してインストールする
-// https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/lbc-helm.html
+/**
+ * HelmチャートをClusterにインストールします。
+ *
+ * 参考
+ *   - AWS Load Balancer Controller - Helmを使用してインストールする
+ *     https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/lbc-helm.html
+ */
+
 resource "helm_release" "aws-load-balancer-controller" {
   name       = "aws-load-balancer-controller"
   repository = "https://aws.github.io/eks-charts"
