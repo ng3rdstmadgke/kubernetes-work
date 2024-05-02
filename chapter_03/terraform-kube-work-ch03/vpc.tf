@@ -24,6 +24,7 @@ module "vpc" {
   }
 }
 
+// 外部ALB
 resource "aws_security_group" "allow_http" {
   name        = "allow_http"
   description = "Allow HTTP access."

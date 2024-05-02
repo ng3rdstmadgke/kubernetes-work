@@ -4,10 +4,27 @@ metadata:
   name: ingress
   namespace: production
   annotations:
+    # 外部LB(internet-facing)にするか、内部LB(internal)にするか
+    #   - https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.7/guide/ingress/annotations/#scheme
+    #   - https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html#load-balancer-scheme
     alb.ingress.kubernetes.io/scheme: internet-facing
+
+    # Podへのトラフィックのルーティング方法を指定します。
+    #   - https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.7/guide/ingress/annotations/#target-type
+    #     - instance (default)
+    #       ALBからのトラフィックはNodePortを経由してPodに到達する
+    #     - ip
+    #       ALBからのトラフィックを直接Pod IPにルーティングする
     alb.ingress.kubernetes.io/target-type: instance
-    # Security Groupを適用する場合は、以下のコメントを外してください。
+
+    # LBにアタッチしたいセキュリティグループをidもしくはNameタグで指定します。
+    #   - https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.7/guide/ingress/annotations/#security-groups
     alb.ingress.kubernetes.io/security-groups: alb, internal
+
+    # このアノテーションは alb.ingress.kubernetes.io/security-groups でSGを指定した場合にのみ適用されます。
+    # true に設定すると、コントローラはロードバランサに追加の共有バックエンドセキュリティグループをアタッチします。
+    # このバックエンドセキュリティグループは Node/Pod セキュリティグループルールで使われます。
+    #   - https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.7/guide/ingress/annotations/#manage-backend-security-group-rules
     alb.ingress.kubernetes.io/manage-backend-security-group-rules: "true"
 spec:
   defaultBackend:
