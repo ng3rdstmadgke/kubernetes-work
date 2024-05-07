@@ -4,6 +4,8 @@
  * 参考
  *   - AWSの「IDプロバイダーとフェデレーション」の仕組みを利用して、GoogleアカウントでAWSを利用・操作してみた
  *     https://note.com/shift_tech/n/nf5eb16948de1
+ *   - IAM ロールを使用して GitHub アクションを AWS のアクションに接続する | AWS セキュリティブログ
+ *     https://aws.amazon.com/jp/blogs/security/use-iam-roles-to-connect-github-actions-to-actions-in-aws/
  */
 
 data "aws_iam_policy_document" "github_actions" {
